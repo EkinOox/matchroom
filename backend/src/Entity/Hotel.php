@@ -15,8 +15,11 @@ class Hotel
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column]
+    private ?int $api = null;
+
     #[ORM\Column(length: 255)]
-    private ?string $api = null;
+    private ?string $name = null;
 
     /**
      * @var Collection<int, User>
@@ -44,14 +47,26 @@ class Hotel
         return $this->id;
     }
 
-    public function getApi(): ?string
+    public function getApi(): ?int
     {
         return $this->api;
     }
 
-    public function setApi(string $api): static
+    public function setApi(int $api): static
     {
         $this->api = $api;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }

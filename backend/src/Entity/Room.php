@@ -30,7 +30,7 @@ class Room
     private ?Hotel $hotel = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $pathImage = null;
+    private ?string $folderImage = null;
 
     #[ORM\Column]
     private ?int $capacity = null;
@@ -49,6 +49,15 @@ class Room
      */
     #[ORM\ManyToMany(targetEntity: Feature::class)]
     private Collection $features;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $acceptanceThreshold = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $refusalThreshold = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $tradingThreshold = null;
 
     public function __construct()
     {
@@ -109,14 +118,14 @@ class Room
         return $this;
     }
 
-    public function getPathImage(): ?string
+    public function getFolderImage(): ?string
     {
-        return $this->pathImage;
+        return $this->folderImage;
     }
 
-    public function setPathImage(string $pathImage): static
+    public function setFolderImage(string $folderImage): static
     {
-        $this->pathImage = $pathImage;
+        $this->folderImage = $folderImage;
 
         return $this;
     }
@@ -200,6 +209,42 @@ class Room
     public function removeFeature(Feature $feature): static
     {
         $this->features->removeElement($feature);
+
+        return $this;
+    }
+
+    public function getAcceptanceThreshold(): ?int
+    {
+        return $this->acceptanceThreshold;
+    }
+
+    public function setAcceptanceThreshold(int $acceptanceThreshold): static
+    {
+        $this->acceptanceThreshold = $acceptanceThreshold;
+
+        return $this;
+    }
+
+    public function getRefusalThreshold(): ?int
+    {
+        return $this->refusalThreshold;
+    }
+
+    public function setRefusalThreshold(int $refusalThreshold): static
+    {
+        $this->refusalThreshold = $refusalThreshold;
+
+        return $this;
+    }
+
+    public function getTradingThreshold(): ?int
+    {
+        return $this->tradingThreshold;
+    }
+
+    public function setTradingThreshold(?int $tradingThreshold): static
+    {
+        $this->tradingThreshold = $tradingThreshold;
 
         return $this;
     }

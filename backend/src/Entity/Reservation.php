@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ReservationRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
@@ -31,17 +29,6 @@ class Reservation
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
-
-    /**
-     * @var Collection<int, Status>
-     */
-    #[ORM\OneToMany(targetEntity: Status::class, mappedBy: 'reservation')]
-    private Collection $status;
-
-    public function __construct()
-    {
-        $this->status = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -104,36 +91,6 @@ class Reservation
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Status>
-     */
-    public function getStatus(): Collection
-    {
-        return $this->status;
-    }
-
-    public function addStatus(Status $status): static
-    {
-        if (!$this->status->contains($status)) {
-            $this->status->add($status);
-            $status->setReservation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStatus(Status $status): static
-    {
-        if ($this->status->removeElement($status)) {
-            // set the owning side to null (unless already changed)
-            if ($status->getReservation() === $this) {
-                $status->setReservation(null);
-            }
-        }
 
         return $this;
     }
