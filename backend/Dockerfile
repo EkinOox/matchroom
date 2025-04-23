@@ -20,6 +20,6 @@ COPY . .
 RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
 
 # Fixer les permissions
-RUN chown -R www-data:www-data /var/www/html/var /var/www/html/vendo
+RUN chown -R www-data:www-data /var/www/html/var /var/www/html/vendor
 
 EXPOSE 80
